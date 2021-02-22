@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./App.css";
 import Chessboard from "chessboardjsx";
-import { Chess, ChessInstance } from "chess.js";
+import { ChessInstance } from "chess.js";
+// chess types aren't playing nice right now
+const Chess = require("chess.js");
 
 const App: React.FC = () => {
   const [chess] = useState<ChessInstance>(
