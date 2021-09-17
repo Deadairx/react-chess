@@ -5,9 +5,11 @@ import { ChessInstance, ShortMove } from "chess.js";
 // chess types aren't playing nice right now
 const Chess = require("chess.js");
 
+const DEFAULT_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+
 const App: React.FC = () => {
   const [chess] = useState<ChessInstance>(
-    new Chess("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1")
+    new Chess(DEFAULT_FEN)
   );
 
   const [fen, setFen] = useState(chess.fen());
