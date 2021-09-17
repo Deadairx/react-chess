@@ -10,6 +10,7 @@ Simple chess game built with React.
 - [ ] 2 player mode with WebSockets
 - [ ] Game over screen
 - [ ] Game over screen with winner
+- [ ] Reset button
 
 ## Available Scripts
 
