@@ -1,7 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Chessboard from "chessboardjsx";
 import { ChessInstance, ShortMove } from "chess.js";
+import { ChessClient } from "./api/client";
+import { io } from "socket.io-client";
+import { StartGameRequest } from "./api/start-game.request";
+import { request } from "https";
 // chess types aren't playing nice right now
 const Chess = require("chess.js");
 
@@ -12,10 +16,25 @@ const App: React.FC = () => {
     new Chess(DEFAULT_FEN)
   );
 
+  const [socket] = useState(io('http://localhost:3001', { auth: { username: 'test' } }));
+
+  const [chessClient] = useState(
+    new ChessClient(socket)
+  );
+
+  useEffect(() => {
+    const startGameRequest = new StartGameRequest({});
+    startGameRequest.gameId = "test";
+
+    chessClient.startGame(startGameRequest);
+  }, []);
+
   const [fen, setFen] = useState(chess.fen());
 
   const handleMove = (move: ShortMove) => {
     if (chess.move(move)) {
+      chessClient.makeMove(move);
+
       setTimeout(() => {
         const moves = chess.moves();
 
